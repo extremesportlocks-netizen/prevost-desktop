@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>PrevostStuff — The World's Premier Prevost Marketplace</title>
-<meta name="description" content="Buy and sell luxury Prevost motorcoaches. Marathon, Liberty, Millennium, Emerald conversions. List free, browse free."/>
+<title>Luxury Coach Exchange — The World's Premier Luxury Coach Marketplace</title>
+<meta name="description" content="Buy and sell luxury Prevost and Newell motorcoaches. Marathon, Liberty, Millennium, Emerald, and more conversions. List free, browse free."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
@@ -244,10 +244,10 @@ function App(){
       <W style={{display:"flex",justifyContent:"space-between",alignItems:"center",width:"100%"}}>
         <div style={{display:"flex",alignItems:"center",gap:14,cursor:"pointer"}} onClick={()=>nav("home")}>
           <div style={{width:10,height:10,background:GOLD,transform:"rotate(45deg)"}}/>
-          <span style={{fontSize:24,fontWeight:700,letterSpacing:".03em"}}>PREVOST<span style={{color:GOLD}}>STUFF</span></span>
+          <span style={{fontSize:24,fontWeight:700,letterSpacing:".03em"}}>LUXURY<span style={{color:GOLD}}> COACH</span> EXCHANGE</span>
         </div>
         <div style={{display:"flex",alignItems:"center",gap:6,height:72}}>
-          {[["home","Home"],["browse","Browse"],["sell","List Free"]].map(([p,l])=>(
+          {[["home","Home"],["browse","Browse"],["sell","List Free"],["about","About"]].map(([p,l])=>(
             <div key={p} onClick={()=>nav(p)} style={{padding:"0 22px",height:"100%",display:"flex",alignItems:"center",fontSize:13,fontWeight:500,letterSpacing:".05em",color:pg===p?CREAM:GRAY,cursor:"pointer",borderBottom:pg===p?"2px solid "+GOLD:"2px solid transparent",transition:"all .3s"}}>{l.toUpperCase()}</div>
           ))}
           {user?<>
@@ -356,7 +356,7 @@ function App(){
             <div style={{fontSize:12,color:GOLD,letterSpacing:".12em",fontWeight:500,marginBottom:14}}>FOR SELLERS</div>
             <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:42,fontWeight:700,lineHeight:1.15,marginBottom:16}}>List Free.<br/>Pay <span style={{color:GOLD}}>$500 Once</span>.<br/>Never Again.</h2>
             <p style={{color:GRAY,lineHeight:1.7,fontSize:16,marginBottom:28,maxWidth:420}}>
-              Your listing lives on the #1 Prevost marketplace at zero cost. When your first real buyer reaches out, pay a one‑time $500 to unlock messaging forever.
+              Your listing lives on the #1 luxury coach marketplace at zero cost. When your first real buyer reaches out, pay a one‑time $500 to unlock messaging forever.
             </p>
             <button className="btn-gold" onClick={()=>user?nav("sell"):nav("auth",()=>{setAuthMode("signup");setAuthRole("seller");})}>List Your Coach — Free</button>
           </div>
@@ -380,7 +380,7 @@ function App(){
             <div>
               <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:16}}>
                 <div style={{width:8,height:8,background:GOLD,transform:"rotate(45deg)"}}/>
-                <span style={{fontSize:20,fontWeight:700}}>PREVOST<span style={{color:GOLD}}>STUFF</span></span>
+                <span style={{fontSize:20,fontWeight:700}}>LUXURY<span style={{color:GOLD}}> COACH</span> EXCHANGE</span>
               </div>
               <p style={{fontSize:14,color:GRAY,lineHeight:1.7,maxWidth:300}}>The world's premier marketplace for luxury Prevost motorcoach conversions. Connecting buyers and sellers since 2003.</p>
             </div>
@@ -398,11 +398,69 @@ function App(){
             </div>
           </div>
           <div style={{borderTop:"1px solid "+BORDER,paddingTop:24,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-            <span style={{fontSize:13,color:"rgba(240,236,230,.3)"}}>© 2025 PrevostStuff. All rights reserved.</span>
+            <span style={{fontSize:13,color:"rgba(240,236,230,.3)"}}>© 2025 Luxury Coach Exchange. All rights reserved.</span>
             <span style={{fontSize:13,color:"rgba(240,236,230,.3)"}}>The definitive Prevost marketplace.</span>
           </div>
         </W>
       </footer>
+    </div>}
+
+
+    {/* ════ ABOUT ════ */}
+    {pg==="about"&&<div className="fade-in" style={{maxWidth:900,margin:"0 auto",padding:"60px 20px"}}>
+      <div style={{textAlign:"center",marginBottom:50}}>
+        <div style={{color:GOLD,fontSize:14,fontWeight:600,letterSpacing:".08em",marginBottom:12}}>ABOUT US</div>
+        <h1 style={{fontSize:42,fontWeight:700,lineHeight:1.2,marginBottom:20}}>A Brand Built on Passion</h1>
+        <div style={{width:60,height:3,background:GOLD,margin:"0 auto",marginBottom:30}}></div>
+      </div>
+
+      <div style={{fontSize:16,lineHeight:1.8,color:GRAY,marginBottom:40}}>
+        <p style={{marginBottom:20}}>Luxury Coach Exchange was created with a singular purpose: to honor, showcase, and elevate the pinnacle of motorcoach ownership. This platform is dedicated exclusively to the most prestigious names in the industry—Prevost and Newell Coach—reflecting a commitment to quality, heritage, and craftsmanship without compromise.</p>
+        <p style={{marginBottom:20}}>Our mission is to create a first‑in‑class experience that elevates every moment of the motorcoach ownership journey. Whether you are searching for your next luxury coach or preparing to pass yours on to its next owner, Luxury Coach Exchange delivers clarity, confidence, and premium service at every step.</p>
+        <p style={{marginBottom:20}}>Luxury Coach Exchange is proud to focus solely on the absolute best in the world. Our offerings include only Prevost and Newell coaches.</p>
+      </div>
+
+      <div style={{background:DARK2,borderRadius:14,padding:40,marginBottom:50}}>
+        <h2 style={{fontSize:28,fontWeight:700,marginBottom:8}}>Under the Prevost Umbrella</h2>
+        <p style={{color:GRAY,fontSize:15,marginBottom:24}}>We highlight the premier conversion houses:</p>
+        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(220px,1fr))",gap:16}}>
+          {["Liberty Coach","Marathon Coach","Millennium Luxury Coaches","Emerald","Featherlite","Loki Coach"].map((name,i)=>
+            <div key={i} style={{background:DARK3,borderRadius:10,padding:"16px 20px",display:"flex",alignItems:"center",gap:12}}>
+              <div style={{width:8,height:8,borderRadius:"50%",background:GOLD,flexShrink:0}}></div>
+              <span style={{fontSize:15,fontWeight:500}}>{name}</span>
+            </div>
+          )}
+          <div style={{background:DARK3,borderRadius:10,padding:"16px 20px",display:"flex",alignItems:"center",gap:12}}>
+            <div style={{width:8,height:8,borderRadius:"50%",background:GOLD,flexShrink:0}}></div>
+            <span style={{fontSize:15,fontWeight:500,fontStyle:"italic"}}>And the other world‑class converters who define the luxury coach standard</span>
+          </div>
+        </div>
+      </div>
+
+      <div style={{fontSize:16,lineHeight:1.8,color:GRAY,marginBottom:60}}>
+        <p>This platform exists to curate an experience that reflects the sophistication and passion of the motorcoach community. From discovery to final disposition, our process is designed to be smooth, enjoyable, and deeply rewarding—because luxury motorcoach ownership should be a journey in itself.</p>
+      </div>
+
+      <div style={{borderTop:"1px solid rgba(196,149,106,.2)",paddingTop:60}}>
+        <div style={{color:GOLD,fontSize:14,fontWeight:600,letterSpacing:".08em",marginBottom:8,textAlign:"center"}}>THE CREATOR</div>
+        <h2 style={{fontSize:34,fontWeight:700,textAlign:"center",marginBottom:40}}>About Brandon Stoneburner</h2>
+        
+        <div style={{display:"flex",flexWrap:"wrap",gap:40,alignItems:"flex-start"}}>
+          <div style={{width:280,height:350,borderRadius:14,background:DARK2,border:"1px solid rgba(196,149,106,.2)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+            <div style={{textAlign:"center",color:GRAY}}>
+              <div style={{fontSize:48,marginBottom:8,opacity:.3}}>📷</div>
+              <div style={{fontSize:13,fontWeight:500}}>Headshot Coming Soon</div>
+            </div>
+          </div>
+          
+          <div style={{flex:1,minWidth:280,fontSize:16,lineHeight:1.8,color:GRAY}}>
+            <p style={{marginBottom:20}}>At the age of 15, the very first vehicle Brandon Stoneburner ever drove was a Royale Coach. That moment changed everything. While most teenagers were learning on simple family cars, Brandon’s introduction to driving came behind the wheel of a handcrafted luxury motorcoach. The presence, engineering, and artistry of that Royale Coach ignited a passion that would follow him throughout his life.</p>
+            <p style={{marginBottom:20}}>Over the years, that spark evolved into a deep respect for the motorcoach lifestyle and the craftsmanship behind the industry’s finest machines. Brandon’s love for Prevost and Newell coaches is rooted not only in their engineering excellence but in the stories they help create and the journeys they make possible.</p>
+            <p style={{marginBottom:20}}>Luxury Coach Exchange was born from this passion. Brandon envisioned a platform where buyers and sellers alike could enjoy the process of transitioning into or out of a luxury coach—a place where excitement, trust, and enjoyment lead the experience, not pressure or uncertainty.</p>
+            <p>This site stands as a tribute to the joy of the journey. Whether you’re seeking your first coach or passing yours along for someone else’s next adventure, we hope you enjoy the experience fully.</p>
+          </div>
+        </div>
+      </div>
     </div>}
 
     {/* ════ BROWSE ════ */}
@@ -458,7 +516,7 @@ function App(){
         <div style={{textAlign:"center",marginBottom:32}}>
           <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:10,marginBottom:16}}>
             <div style={{width:8,height:8,background:GOLD,transform:"rotate(45deg)"}}/>
-            <span style={{fontSize:20,fontWeight:700}}>PREVOST<span style={{color:GOLD}}>STUFF</span></span>
+            <span style={{fontSize:20,fontWeight:700}}>LUXURY<span style={{color:GOLD}}> COACH</span> EXCHANGE</span>
           </div>
           <h2 style={{fontSize:26,fontWeight:700}}>{authMode==="login"?"Welcome Back":"Create Account"}</h2>
         </div>

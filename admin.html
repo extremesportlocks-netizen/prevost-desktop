@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LCE Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0a0a0f;color:#e8e4de;min-height:100vh}
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.login-box{width:400px;padding:40px;background:#111118;border-radius:16px;border:1px solid rgba(196,149,106,.15)}
+.login-box h1{font-size:24px;margin-bottom:8px;text-align:center}
+.login-box p{color:#888;font-size:14px;text-align:center;margin-bottom:28px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:11px;color:#888;letter-spacing:.08em;font-weight:600;margin-bottom:6px}
+.field input{width:100%;padding:12px 16px;background:#1a1a24;border:1px solid rgba(240,236,230,.08);border-radius:10px;color:#e8e4de;font-size:15px;outline:none}
+.field input:focus{border-color:rgba(196,149,106,.4)}
+.btn{width:100%;padding:14px;background:linear-gradient(135deg,#c4956a,#a07850);color:#0a0a0f;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px}
+.btn:hover{opacity:.9}
+.err{color:#e53e3e;font-size:13px;text-align:center;margin-top:12px}
+
+/* Dashboard */
+.dash{display:none}
+.topbar{padding:16px 32px;background:#111118;border-bottom:1px solid rgba(240,236,230,.06);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+.topbar h1{font-size:18px;font-weight:700}
+.topbar h1 span{color:#c4956a}
+.topbar .logout{padding:8px 18px;background:rgba(196,149,106,.1);color:#c4956a;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
+.container{max-width:1200px;margin:0 auto;padding:32px}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+.stat{padding:24px;background:#111118;border-radius:14px;border:1px solid rgba(240,236,230,.06)}
+.stat .label{font-size:11px;color:#888;letter-spacing:.08em;font-weight:600;margin-bottom:8px}
+.stat .value{font-size:32px;font-weight:700}
+.stat .value.gold{color:#c4956a}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;margin-bottom:24px;border-bottom:1px solid rgba(240,236,230,.06);padding-bottom:0}
+.tab{padding:12px 24px;font-size:13px;font-weight:600;color:#888;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s}
+.tab.active{color:#c4956a;border-bottom-color:#c4956a}
+.tab:hover{color:#e8e4de}
+
+/* Table */
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{text-align:left;padding:12px 16px;font-size:11px;color:#888;letter-spacing:.06em;font-weight:600;border-bottom:1px solid rgba(240,236,230,.06)}
+.tbl td{padding:14px 16px;font-size:14px;border-bottom:1px solid rgba(240,236,230,.04)}
+.tbl tr:hover td{background:rgba(196,149,106,.03)}
+.badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:600}
+.badge.buyer{background:rgba(106,140,196,.15);color:#6a8cc4}
+.badge.seller{background:rgba(196,149,106,.15);color:#c4956a}
+.badge.both{background:rgba(106,196,140,.15);color:#6ac48c}
+.badge.paid{background:rgba(106,196,140,.15);color:#6ac48c}
+.badge.unpaid{background:rgba(196,106,106,.1);color:#c46a6a}
+.badge.active{background:rgba(106,196,140,.15);color:#6ac48c}
+
+/* Activity */
+.activity-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid rgba(240,236,230,.04)}
+.activity-dot{width:8px;height:8px;border-radius:50%;margin-top:6px;flex-shrink:0}
+.activity-dot.signup{background:#6a8cc4}
+.activity-dot.payment{background:#6ac48c}
+.activity-dot.message{background:#c4956a}
+.activity-text{font-size:14px}
+.activity-time{font-size:12px;color:#666;margin-top:4px}
+
+.empty{text-align:center;padding:60px 20px;color:#666}
+.refresh-btn{padding:8px 16px;background:rgba(196,149,106,.1);color:#c4956a;border:1px solid rgba(196,149,106,.15);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
+
+@media(max-width:768px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .container{padding:16px}
+  .tbl{font-size:13px}
+  .tbl th,.tbl td{padding:10px 8px}
+  .tabs{overflow-x:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="login-wrap" id="loginView">
+  <div class="login-box">
+    <h1>◆ LCE <span style="color:#c4956a">Admin</span></h1>
+    <p>Luxury Coach Exchange Dashboard</p>
+    <div class="field">
+      <label>EMAIL</label>
+      <input type="email" id="email" placeholder="admin@luxurycoachexchange.com">
+    </div>
+    <div class="field">
+      <label>PASSWORD</label>
+      <input type="password" id="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="btn" onclick="doLogin()">Sign In</button>
+    <div class="err" id="loginErr"></div>
+  </div>
+</div>
+
+<div class="dash" id="dashView">
+  <div class="topbar">
+    <h1>◆ LCE <span>Admin</span></h1>
+    <div style="display:flex;gap:10px;align-items:center">
+      <button class="refresh-btn" onclick="loadAll()">↻ Refresh</button>
+      <button class="logout" onclick="doLogout()">Sign Out</button>
+    </div>
+  </div>
+  <div class="container">
+    <div class="stats" id="stats"></div>
+    <div class="tabs" id="tabs">
+      <div class="tab active" data-tab="users">Users</div>
+      <div class="tab" data-tab="listings">Listings</div>
+      <div class="tab" data-tab="conversations">Messages</div>
+      <div class="tab" data-tab="activity">Activity</div>
+    </div>
+    <div id="content"></div>
+  </div>
+</div>
+
+<script>
+const API = 'https://lce-backend-x42l.onrender.com/api';
+let token = localStorage.getItem('lce_admin_token');
+let currentTab = 'users';
+let data = {};
+
+async function apiFetch(path) {
+  const r = await fetch(API + path, { headers: { Authorization: 'Bearer ' + token } });
+  if (!r.ok) throw new Error('Unauthorized');
+  return r.json();
+}
+
+async function doLogin() {
+  const email = document.getElementById('email').value;
+  const pw = document.getElementById('password').value;
+  const err = document.getElementById('loginErr');
+  err.textContent = '';
+  try {
+    const r = await fetch(API + '/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password: pw })
+    });
+    const d = await r.json();
+    if (!r.ok) { err.textContent = d.error || 'Invalid credentials'; return; }
+    token = d.token;
+    localStorage.setItem('lce_admin_token', token);
+    showDash();
+  } catch (e) { err.textContent = 'Connection error'; }
+}
+
+function doLogout() {
+  localStorage.removeItem('lce_admin_token');
+  token = null;
+  document.getElementById('dashView').style.display = 'none';
+  document.getElementById('loginView').style.display = 'flex';
+}
+
+async function showDash() {
+  document.getElementById('loginView').style.display = 'none';
+  document.getElementById('dashView').style.display = 'block';
+  await loadAll();
+}
+
+async function loadAll() {
+  try {
+    const [dash, users, listings, convos, activity] = await Promise.all([
+      apiFetch('/admin/dashboard'),
+      apiFetch('/admin/users'),
+      apiFetch('/admin/listings'),
+      apiFetch('/admin/conversations'),
+      apiFetch('/admin/activity')
+    ]);
+    data = { dash, users: users.users, listings: listings.listings, convos: convos.conversations, activity: activity.activity };
+    renderStats();
+    renderTab();
+  } catch (e) { doLogout(); }
+}
+
+function renderStats() {
+  const d = data.dash;
+  document.getElementById('stats').innerHTML = `
+    <div class="stat"><div class="label">TOTAL USERS</div><div class="value">${d.total_users}</div></div>
+    <div class="stat"><div class="label">ACTIVE LISTINGS</div><div class="value">${d.active_listings}</div></div>
+    <div class="stat"><div class="label">PAID SELLERS</div><div class="value">${d.paid_sellers}</div></div>
+    <div class="stat"><div class="label">REVENUE</div><div class="value gold">$${d.revenue.toLocaleString()}</div></div>
+  `;
+}
+
+function renderTab() {
+  const el = document.getElementById('content');
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === currentTab));
+
+  if (currentTab === 'users') {
+    if (!data.users?.length) { el.innerHTML = '<div class="empty">No users yet</div>'; return; }
+    el.innerHTML = `<table class="tbl"><thead><tr><th>NAME</th><th>EMAIL</th><th>ROLE</th><th>PAID</th><th>SIGNED UP</th></tr></thead><tbody>${
+      data.users.map(u => `<tr>
+        <td><strong>${esc(u.name)}</strong></td>
+        <td>${esc(u.email)}</td>
+        <td><span class="badge ${u.role}">${u.role}</span></td>
+        <td><span class="badge ${u.paid ? 'paid' : 'unpaid'}">${u.paid ? '✓ Paid' : 'Free'}</span></td>
+        <td>${fmtDate(u.created_at)}</td>
+      </tr>`).join('')
+    }</tbody></table>`;
+  }
+
+  else if (currentTab === 'listings') {
+    if (!data.listings?.length) { el.innerHTML = '<div class="empty">No listings yet</div>'; return; }
+    el.innerHTML = `<table class="tbl"><thead><tr><th>COACH</th><th>SELLER</th><th>PRICE</th><th>STATUS</th><th>CREATED</th></tr></thead><tbody>${
+      data.listings.map(l => `<tr>
+        <td><strong>${l.year} ${esc(l.converter)} ${esc(l.model)}</strong>${l.num ? ' #' + esc(l.num) : ''}</td>
+        <td>${esc(l.seller_name)}<br><span style="font-size:12px;color:#888">${esc(l.seller_email)}</span></td>
+        <td>${l.price_display || (l.price ? '$' + l.price.toLocaleString() : 'N/A')}</td>
+        <td><span class="badge active">${l.status}</span></td>
+        <td>${fmtDate(l.created_at)}</td>
+      </tr>`).join('')
+    }</tbody></table>`;
+  }
+
+  else if (currentTab === 'conversations') {
+    if (!data.convos?.length) { el.innerHTML = '<div class="empty">No conversations yet</div>'; return; }
+    el.innerHTML = `<table class="tbl"><thead><tr><th>BUYER</th><th>SELLER</th><th>COACH</th><th>MESSAGES</th><th>LAST MESSAGE</th></tr></thead><tbody>${
+      data.convos.map(c => `<tr>
+        <td>${esc(c.buyer_name)}<br><span style="font-size:12px;color:#888">${esc(c.buyer_email)}</span></td>
+        <td>${esc(c.seller_name)}<br><span style="font-size:12px;color:#888">${esc(c.seller_email)}</span></td>
+        <td>${c.year} ${esc(c.converter)} ${esc(c.model)}</td>
+        <td>${c.message_count}</td>
+        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.last_message ? esc(c.last_message) : '—'}</td>
+      </tr>`).join('')
+    }</tbody></table>`;
+  }
+
+  else if (currentTab === 'activity') {
+    if (!data.activity?.length) { el.innerHTML = '<div class="empty">No activity yet</div>'; return; }
+    el.innerHTML = data.activity.map(a => `
+      <div class="activity-item">
+        <div class="activity-dot ${a.type}"></div>
+        <div>
+          <div class="activity-text">${
+            a.type === 'signup' ? `<strong>${esc(a.name)}</strong> signed up as <span class="badge ${a.role}">${a.role}</span>` :
+            a.type === 'payment' ? `<strong>${esc(a.name)}</strong> <span class="badge paid">paid $500</span>` :
+            `<strong>${esc(a.name)}</strong> sent a message`
+          }</div>
+          <div class="activity-time">${fmtDate(a.created_at)}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+function fmtDate(d) {
+  if (!d) return '—';
+  const dt = new Date(d);
+  return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + ' ' +
+    dt.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+}
+
+function esc(s) { if (!s) return ''; const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+// Tab clicks
+document.getElementById('tabs').addEventListener('click', e => {
+  if (e.target.dataset.tab) { currentTab = e.target.dataset.tab; renderTab(); }
+});
+
+// Auto-login if token exists
+if (token) { showDash().catch(() => doLogout()); }
+</script>
+</body>
+</html>

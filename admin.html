@@ -138,11 +138,11 @@ async function doLogin() {
       body: JSON.stringify({ email, password: pw })
     });
     const d = await r.json();
-    if (!r.ok) { err.textContent = d.error || 'Invalid credentials'; return; }
+    if (!r.ok) { err.textContent = d.error || 'Login failed (status ' + r.status + ')'; return; }
     token = d.token;
     localStorage.setItem('lce_admin_token', token);
     showDash();
-  } catch (e) { err.textContent = 'Connection error'; }
+  } catch (e) { err.textContent = 'Connection error: ' + e.message; }
 }
 
 function doLogout() {
